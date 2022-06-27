@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,6 +35,9 @@ LOGIN_URL = '/login'
 
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
+
+STRIPE_API_KEY_PUBLISHABLE = config('SECRET_KEY')
+STRIPE_API_KEY_HIDDEN = config('SECRET_KEY_TWO')
 
 # Application definition
 
