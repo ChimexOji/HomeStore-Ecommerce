@@ -8,7 +8,7 @@
     <div class="products w-full lg:w-3/4">
         <h1 class="mb-5 text-3xl">Checkout</h1>
         
-        <div class="w-full pr-6">
+        <div class="w-full md:pr-6">
             <div class="mb-6 p-6 bg-gray-100 rounded-xl">
                 <h2 class="mb-5 uppercase text-bold">Shipping Information</h2>
 
@@ -56,13 +56,12 @@
                 </div>
             </div>
 
-            <div class="mb-6 p-6 bg-gray-100 rounded-xl">
-                <h2 class="mb-5 uppercase text-bold">Payment Information</h2>
+            <div class="mb-6 p-6 bg-gray-100 rounded-xl" id="errors">
             </div>
         </div>
     </div>
 
-    <div class="summary w-full w-1/4 p-6 bg-gray-100 rounded-xl mt-3">
+    <div class="summary w-full md:w-1/4 p-6 bg-gray-100 rounded-xl mt-3">
         <div class="h2 class uppercase text-lg mb-5">Summary</div>
 
         <div class="mb-6 flex justify-between">
@@ -78,6 +77,8 @@
 {% block scripts %}
 <script type="application/javascript" src="https://js.stripe.com/v3/"></script>
 <script>
+    let el = document.getElementById('errors')
+
     function validateForm(data) {
         let errors = []
 
@@ -101,6 +102,18 @@
         }
         if (data.place === '') {
             errors.push('Place is empty')
+        }
+
+        if (errors.length > 0) {
+            let html = '<ul>';
+            
+            errors.forEach((error) => {
+                html += '<li>' + error + '</li>';
+            })
+
+            el.innerHTML = html + '</ul>';
+        } else {
+            el.innerHTML = '';
         }
 
         return errors
