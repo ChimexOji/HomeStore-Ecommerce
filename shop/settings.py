@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 
 import dj_database_url
-from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,21 +22,15 @@ import environ
 
 env = environ.Env()
 
-environ.Env.read_env()
+environ.Env.read_env(env_file=str(BASE_DIR) + '/.env')
 
-def get_env_variable(var_name):
-    try:
-        return os.environ[var_name]
-    except keyError:
-        error_msg = "set the %s environment variable" % var_name
-        raise ImpproperlyConfigured(error_msg)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY")
+SECRET_KEY = env('DJANGO_K')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
